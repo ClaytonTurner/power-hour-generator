@@ -1,37 +1,37 @@
-## Welcome to GitHub Pages
+# Power Hour Generator
 
-You can use the [editor on GitHub](https://github.com/ClaytonTurner/power-hour-generator/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Installation
+### Required Files
+These are packages that need to be downloaded in order for this software to work.
+In addition to downloading these files, you will need to add the folders you download below to your PATH.
+How to add folders/files to your path: [http://windowsitpro.com/systems-management/how-can-i-add-new-folder-my-system-path](Windows) [http://architectryan.com/2012/10/02/add-to-the-path-on-mac-os-x-mountain-lion/#.WMxEafkrLIU](Mac) [http://askubuntu.com/questions/60218/how-to-add-a-directory-to-the-path](Linux)
+In order to test if the software below is added to your path, then open up a command prompt (Windows) or terminal (Mac/Linux). Once here try typing "python" to see if you get an error or if Python opens. To test youtube-dl, just try typing "youtube-dl". To test ffmpeg, just try typing "ffmpeg"
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[https://www.python.org/downloads/](Python 3)
+Make sure you select Python 3 from the page above instead of Python 2. If you already have Python 2 installed and are having issues, then you should be fine by either going into power_hour.py and deleting the "print..." lines or just replacing the parentheses on those print lines with spaces.
 
-### Markdown
+[https://rg3.github.io/youtube-dl/](youtube-dl)
+This package is needed to download videos off of youtube
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+[https://ffmpeg.org/download.html](ffmpeg)
+This package is needed in order to splice videos from your local machine and add different videos together
 
-```markdown
-Syntax highlighted code block
+If any issues come up, then please post to the [https://github.com/ClaytonTurner/power-hour-generator/issues](https://github.com/ClaytonTurner/power-hour-generator/issues)
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+### How to use
+The key to running this program in its current state is the songs.txt file. In this directory currently is a songs.txt that I have tested and confirmed to work. The format is as follows:
 ```
+youtube link for beep
+beep start time
+beep end time
+youtube link for song 1
+song 1 start time
+youtube link for song 2
+song 2 start time
+...
+youtube link for song 60
+song 60 start time
+```
+You don't have to add 60 songs/videos, but we currently only support going up to 60.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ClaytonTurner/power-hour-generator/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Once you have your songs.txt ready, then you should be able to create the power hour by running the power_hour.py file. This can be done either by double-clicking it in your file explorer (as .py files should be associated with python now) or opening up a command prompt/terminal, navigating to the directory with the file, and typing "python power_hour.py"
