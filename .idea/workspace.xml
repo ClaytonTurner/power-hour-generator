@@ -300,7 +300,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489781462043</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Removing unnecessary file">
+      <created>1489782980793</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1489782980793</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -333,7 +340,8 @@
     <MESSAGE value="Initial Commit - added download/split code. concat is very error-prone" />
     <MESSAGE value="Concatenation FINALLY works - lots of superfluous code still" />
     <MESSAGE value="Removed excess code. Added comments &amp; gitignore. Full example works/added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed excess code. Added comments &amp; gitignore. Full example works/added." />
+    <MESSAGE value="Removing unnecessary file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing unnecessary file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
