@@ -1,5 +1,6 @@
 *.mp4
 __pycache__/*
+*.pyc
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
