@@ -86,8 +86,10 @@ for i in range(1, songLength + 1):
         subprocess.call("ffmpeg " +
                         " -ss " + str(start_time) + " -i " + curSong + "_full.mp4 " +
                         " -t " + duration + " -vcodec libx264 -acodec aac -strict experimental -r 24 -async 1 -y " +
-                        "-vf fade=out:" + str(fade_out_start) + ":" + str(fade_frame_count) +
-                        " -af afade=out:st=" + str(songLength - fade_length) + ":d=" + str(fade_length) +
+                        "-vf fade=in:0:" + str(fade_frame_count) +
+                        ",fade=out:" + str(fade_out_start) + ":" + str(fade_frame_count) +
+                        " -af afade=in:st=0:d=" + str(fade_length) +
+                        ",afade=out:st=" + str(songLength - fade_length) + ":d=" + str(fade_length) +
                         " " + curSong + ".mp4")
         # os.remove(curSong + "_full.mp4")
 
