@@ -12,6 +12,7 @@ In order to test if the software below is added to your path, then open up a com
 
 
 [Python 3](https://www.python.org/downloads/)
+
 Make sure you select Python 3 from the page above instead of Python 2. If you already have Python 2 installed and are having issues, then you should be fine by either going into power_hour.py and deleting the "print..." lines or just replacing the parentheses on those print lines with spaces.
 
 
