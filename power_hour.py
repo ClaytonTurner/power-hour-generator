@@ -21,10 +21,11 @@ songLength = 60
 song_file = open(song_file_name, "r")
 
 # Create temporary file directory
-# TODO: Race condition if directory is created during this check/creation (OSError)
+print("Removing temp folder if exists then (re)creating it for a clean run.")
 try:
-    if not os.path.exists(temp_dir):
-        os.makedirs(temp_dir)
+    if os.path.exists(temp_dir):
+        shutil.rmtree(os.path.join(orig_dir, temp_dir))
+    os.makedirs(temp_dir)
 except OSError as e:
     error_description = "This is due to a temp directory being created while this app" \
                         "is attempting to create the directory, but the directory did" \

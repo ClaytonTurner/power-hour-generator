@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="070a026c-f7fd-4656-b181-ac6f3e992351" name="Default" comment="Cleanup">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="070a026c-f7fd-4656-b181-ac6f3e992351" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/power_hour.py" afterPath="$PROJECT_DIR$/power_hour.py" />
     </list>
@@ -22,8 +21,8 @@
       <file leaf-file-name="power_hour.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/power_hour.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="97" column="12" lean-forward="false" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
+            <state relative-caret-position="65">
+              <caret line="23" column="75" lean-forward="false" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -361,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489784281897</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Temporary files now collected into a temp folder which is removed recursively">
+      <created>1490043331264</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1490043331264</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -400,7 +406,8 @@
     <MESSAGE value="Removing cached files" />
     <MESSAGE value="Removing workspace-specific files" />
     <MESSAGE value="Cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
+    <MESSAGE value="Temporary files now collected into a temp folder which is removed recursively" />
+    <option name="LAST_COMMIT_MESSAGE" value="Temporary files now collected into a temp folder which is removed recursively" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -528,8 +535,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/power_hour.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="97" column="12" lean-forward="false" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
+        <state relative-caret-position="65">
+          <caret line="23" column="75" lean-forward="false" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
