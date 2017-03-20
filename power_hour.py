@@ -10,12 +10,20 @@ def timestamp_convert_to_seconds(timestamp):
     return ((minutes * 60000) + (seconds * 1000)) / 1000
 
 # Variable declarations - also adds easy insertion/extraction into GUI later
-song_file_name = "songs.txt"
+song_file_name = "songs.txt" # Use in GUI
 orig_dir = os.getcwd()
 temp_dir = "temp"
-power_hour_name = "power_hour"  # We add the .mp4 later
+power_hour_name = "power_hour"  # We add the .mp4 later # Use in GUI
 duration = "01:00"
 songLength = 60
+
+# Variables for fading
+# If fade_length is zero, then we should remove the filters to speed the process up
+fade_length = 2  # In seconds # Use in GUI
+frames_per_second = 24  # This is an assumption based on tests
+frames_per_video = frames_per_second * songLength
+fade_out_start = frames_per_video - frames_per_second * fade_length
+fade_frame_count = frames_per_video - fade_out_start
 
 # open power hour text file
 song_file = open(song_file_name, "r")
@@ -30,7 +38,7 @@ except OSError as e:
     error_description = "This is due to a temp directory being created while this app" \
                         "is attempting to create the directory, but the directory did" \
                         "not exist whenever we checked for it. Exiting..."
-    print("Error: " + e, error_description)
+    print("Error: " + str(e), error_description)
     sys.exit(0)
 
 os.chdir(temp_dir)
@@ -45,9 +53,10 @@ beepStart = timestamp_convert_to_seconds(song_file.readline())
 beepEnd = timestamp_convert_to_seconds(song_file.readline())
 beepLength = beepEnd - beepStart
 
-# Convert beep to transport stream for intersplicing later
+# Convert beep to transport stream for inter-splicing later
 subprocess.call("ffmpeg -ss " + str(beepStart) + " -i beep_full.mp4" +
-                        " -t " + str(beepLength) + " -vcodec libx264 -acodec aac -strict experimental -r 24 -async 1 -y beep.mp4")
+                " -t " + str(beepLength) + " -vcodec libx264 -acodec aac " +
+                "-strict experimental -r 24 -async 1 -y beep.mp4")
 subprocess.call("ffmpeg -i beep.mp4 -vf scale=1280:720,setdar=16:9 beep.ts"
                 , shell=True)
 
@@ -76,7 +85,10 @@ for i in range(1, songLength + 1):
         subprocess.call("youtube-dl --quiet -f mp4 -o " + curSong + "_full.mp4 " + link, shell=True)
         subprocess.call("ffmpeg " +
                         " -ss " + str(start_time) + " -i " + curSong + "_full.mp4 " +
-                        " -t " + duration + " -vcodec libx264 -acodec aac -strict experimental -r 24 -async 1 -y " + curSong + ".mp4")
+                        " -t " + duration + " -vcodec libx264 -acodec aac -strict experimental -r 24 -async 1 -y " +
+                        "-vf fade=out:" + str(fade_out_start) + ":" + str(fade_frame_count) +
+                        " -af afade=out:st=" + str(songLength - fade_length) + ":d=" + str(fade_length) +
+                        " " + curSong + ".mp4")
         # os.remove(curSong + "_full.mp4")
 
         subprocess.call("ffmpeg -i " + curSong + ".mp4 -vf scale=1280:720,setdar=16:9 " + curSong + ".ts"
