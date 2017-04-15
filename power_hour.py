@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 import shutil
+import re
 
 
 def timestamp_convert_to_seconds(timestamp):
@@ -10,7 +11,7 @@ def timestamp_convert_to_seconds(timestamp):
     return ((minutes * 60000) + (seconds * 1000)) / 1000
 
 # Variable declarations - also adds easy insertion/extraction into GUI later
-song_file_name = "songs.txt" # Use in GUI
+song_file_name = "songs.txt"  # Use in GUI
 orig_dir = os.getcwd()
 temp_dir = "temp"
 power_hour_name = "power_hour"  # We add the .mp4 later # Use in GUI
@@ -20,10 +21,10 @@ songLength = 60
 # Variables for fading
 # If fade_length is zero, then we should remove the filters to speed the process up
 fade_length = 2  # In seconds # Use in GUI
-frames_per_second = 24  # This is an assumption based on tests
+frames_per_second = 24  # This is an assumption based on tests # Fade out var (not currently used)
 frames_per_video = frames_per_second * songLength
-fade_out_start = frames_per_video - frames_per_second * fade_length
-fade_frame_count = frames_per_video - fade_out_start
+fade_out_start = frames_per_video - frames_per_second * fade_length # Fade out var (not currently used)
+fade_frame_count = frames_per_video - fade_out_start # Fade out var (not currently used)
 
 # open power hour text file
 song_file = open(song_file_name, "r")
@@ -35,8 +36,8 @@ try:
         shutil.rmtree(os.path.join(orig_dir, temp_dir))
     os.makedirs(temp_dir)
 except OSError as e:
-    error_description = "This is due to a temp directory being created while this app" \
-                        "is attempting to create the directory, but the directory did" \
+    error_description = "This is due to a temp directory being created while this app\n" \
+                        "is attempting to create the directory, but the directory did\n" \
                         "not exist whenever we checked for it. Exiting..."
     print("Error: " + str(e), error_description)
     sys.exit(0)
@@ -60,10 +61,6 @@ subprocess.call("ffmpeg -ss " + str(beepStart) + " -i beep_full.mp4" +
 subprocess.call("ffmpeg -i beep.mp4 -vf scale=1280:720,setdar=16:9 beep.ts"
                 , shell=True)
 
-# Now that we have the transport stream, let's remove the spliced and original beep
-# os.remove("beep_full.mp4")
-# os.remove("beep.mp4")
-
 # TODO: Create a GUI to manage this as people may want differing song amounts/lengths/other customization
 # Default: 60 songs of 1 minute a piece - declared above
 # concat_vid_string holds the final string of transport streams to be passed to ffmpeg's concat protocol tool
@@ -79,23 +76,39 @@ for i in range(1, songLength + 1):
         start_time = song_file.readline().strip()
         start = timestamp_convert_to_seconds(start_time)
 
+
         # Download the full video that we want to split up and create transport stream just like above
         # TODO: We could extract this process into a function cleanly, but it's not bad as is
+        # TODO: Try/Catch youtube-dl somehow since it occasionally has download errors
         print("Downloading song " + curSong + " of 60...")
         subprocess.call("youtube-dl --quiet -f mp4 -o " + curSong + "_full.mp4 " + link, shell=True)
+
+
+        # TODO: Add frames per second using ffprobe here
+        # TODO: Optimize this call as it scans the whole video for this as is
+        # print("Determining frames per second for fade conversion")
+        #ffprobe_out = subprocess.Popen("ffprobe -select_streams v -show_streams " + curSong + "_full.mp4"
+        #                               , stdout=subprocess.PIPE)
+        # This includes fade out - we figured out fading out cheapens the effect but let's leave the code here
+        #   for the time being so we can add it to customization options later
+        # subprocess.call("ffmpeg " +
+        #                 " -ss " + str(start_time) + " -i " + curSong + "_full.mp4 " +
+        #                 " -t " + duration + " -vcodec libx264 -acodec aac -strict experimental -r 24 -async 1 -y " +
+        #                 "-vf fade=in:0:" + str(fade_frame_count) +
+        #                 ",fade=out:" + str(fade_out_start) + ":" + str(fade_frame_count) +
+        #                 " -af afade=in:st=0:d=" + str(fade_length) +
+        #                 ",afade=out:st=" + str(songLength - fade_length) + ":d=" + str(fade_length) +
+        #                 " " + curSong + ".mp4")
+
         subprocess.call("ffmpeg " +
                         " -ss " + str(start_time) + " -i " + curSong + "_full.mp4 " +
                         " -t " + duration + " -vcodec libx264 -acodec aac -strict experimental -r 24 -async 1 -y " +
                         "-vf fade=in:0:" + str(fade_frame_count) +
-                        ",fade=out:" + str(fade_out_start) + ":" + str(fade_frame_count) +
                         " -af afade=in:st=0:d=" + str(fade_length) +
-                        ",afade=out:st=" + str(songLength - fade_length) + ":d=" + str(fade_length) +
                         " " + curSong + ".mp4")
-        # os.remove(curSong + "_full.mp4")
 
         subprocess.call("ffmpeg -i " + curSong + ".mp4 -vf scale=1280:720,setdar=16:9 " + curSong + ".ts"
                         , shell=True)
-        # os.remove(curSong+".mp4")
 
         # Add our transport stream to the list and follow it with the interspliced beep
         concat_vid_string += curSong + ".ts|beep.ts|"
