@@ -2,8 +2,6 @@ import os
 import subprocess
 import sys
 import shutil
-import re
-
 
 def timestamp_convert_to_seconds(timestamp):
     minutes = int(timestamp[0:timestamp.rfind(":")])
@@ -79,7 +77,7 @@ for i in range(1, songLength + 1):
 
         # Download the full video that we want to split up and create transport stream just like above
         # TODO: We could extract this process into a function cleanly, but it's not bad as is
-        # TODO: Try/Catch youtube-dl somehow since it occasionally has download errors
+        # TODO: Try/Except youtube-dl somehow since it occasionally has download errors
         print("Downloading song " + curSong + " of 60...")
         subprocess.call("youtube-dl --quiet -f mp4 -o " + curSong + "_full.mp4 " + link, shell=True)
 
