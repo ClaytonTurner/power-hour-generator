@@ -3,6 +3,7 @@ import subprocess
 import sys
 import shutil
 
+
 def timestamp_convert_to_seconds(timestamp):
     minutes = int(timestamp[0:timestamp.rfind(":")])
     seconds = int(timestamp[timestamp.rfind(":") + 1:])
@@ -105,7 +106,8 @@ for i in range(1, songLength + 1):
                         " -af afade=in:st=0:d=" + str(fade_length) +
                         " " + curSong + ".mp4")
 
-        subprocess.call("ffmpeg -i " + curSong + ".mp4 -vf scale=1280:720,setdar=16:9 " + curSong + ".ts"
+        song_to_use = curSong if i < songLength else curSong + "_full"
+        subprocess.call("ffmpeg -i " + song_to_use + ".mp4 -vf scale=1280:720,setdar=16:9 " + curSong + ".ts"
                         , shell=True)
 
         # Add our transport stream to the list and follow it with the interspliced beep
