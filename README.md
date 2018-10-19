@@ -10,6 +10,7 @@ How to add folders/files to your path: [Windows](http://windowsitpro.com/systems
 
 In order to test if the software below is added to your path, then open up a command prompt (Windows) or terminal (Mac/Linux). Once here try typing "python" to see if you get an error or if Python opens. To test youtube-dl, just try typing "youtube-dl". To test ffmpeg, just try typing "ffmpeg"
 
+If you are on a machine with homebrew, then you should be able to "brew install ffmpeg && brew install youtube-dl"
 
 [Python 3](https://www.python.org/downloads/)
 
