@@ -36,10 +36,10 @@ def download_beep(song_file):
     beep_length = beep_end - beep_start
 
     # Convert beep to transport stream for inter-splicing later
-    subprocess.call("ffmpeg -ss {beep_start} -i beep_full.mp4" +
-                    " -t {beep_length} -vcodec libx264 -acodec aac " +
+    subprocess.call("ffmpeg -ss {beep_start} -i beep_full.mp4"
+                    " -t {beep_length} -vcodec libx264 -acodec aac "
                     "-strict experimental -r 24 -async 1 -y beep.mp4"
-                    .format(beep_start=str(beep_start), beep_length=str(beep_length)))
+                    .format(beep_start=str(beep_start), beep_length=str(beep_length)), shell=True)
     subprocess.call("ffmpeg -i beep.mp4 -vf scale=1280:720,setdar=16:9 beep.ts", shell=True)
 
 
@@ -96,7 +96,7 @@ def download_and_create_video_string(song_length, song_file, duration, fade_fram
                         fade_frame_count=str(fade_frame_count),
                         fade_length=str(fade_length),
                         )
-            subprocess.call(call_string)
+            subprocess.call(call_string, shell=True)
 
             subprocess.call("ffmpeg -i {current_song}.mp4 -vf scale=1280:720,setdar=16:9 {current_song}.ts"
                             .format(current_song=current_song,
@@ -140,7 +140,7 @@ def execute():
     # Use the ffmpeg Protocol method
     # [:-9] is so we remove that last beep off the end
     # TODO: When GUI'd up, move power hours to a Power_Hours folder (currently in gitignore)
-    subprocess.call("ffmpeg -i \"" + vid_string[:-9] + "\"  -c copy -s 1280:720 " + power_hour_name + ".mp4")
+    subprocess.call("ffmpeg -i \"" + vid_string[:-9] + "\"  -c copy -s 1280:720 " + power_hour_name + ".mp4", shell=True)
 
     shutil.move(os.path.join(os.getcwd(), power_hour_name) + ".mp4",
                 os.path.join(orig_dir, power_hour_name) + ".mp4")
