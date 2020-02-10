@@ -1,37 +1,49 @@
 # Power Hour Generator
 
 ## Installation
-### Required Files
+### Required Programs/Files
 These are packages that need to be downloaded in order for this software to work.
 
 In addition to downloading these files, you will need to add the folders you download below to your PATH.
 
 How to add folders/files to your path: [Windows](http://windowsitpro.com/systems-management/how-can-i-add-new-folder-my-system-path) [Mac](http://architectryan.com/2012/10/02/add-to-the-path-on-mac-os-x-mountain-lion/#.WMxEafkrLIU) [Linux](http://askubuntu.com/questions/60218/how-to-add-a-directory-to-the-path)
 
-In order to test if the software below is added to your path, then open up a command prompt (Windows) or terminal (Mac/Linux). Once here try typing "python" to see if you get an error or if Python opens. To test youtube-dl, just try typing "youtube-dl". To test ffmpeg, just try typing "ffmpeg"
 
-If you are on a machine with homebrew, then you should be able to "brew install ffmpeg && brew install youtube-dl"
+#### Automatic installation
 
-[Python 3](https://www.python.org/downloads/)
+If you have homebrew installed, then you should be able to run the following to install the required programs
+```shell script
+brew install python && brew install ffmpeg && brew install youtube-dl
+```
 
-Make sure you select Python 3 from the page above instead of Python 2. If you already have Python 2 installed and are having issues, then you should be fine by either going into power_hour.py and deleting the "print..." lines or just replacing the parentheses on those print lines with spaces.
+#### Manual installation
 
+[Python 3](https://www.python.org/downloads/)  
+Used to execute the program
 
-[youtube-dl](https://rg3.github.io/youtube-dl/)
-
+[youtube-dl](https://rg3.github.io/youtube-dl/)  
 This package is needed to download videos off of youtube
 
 
-[ffmpeg](https://ffmpeg.org/download.html)
-
+[ffmpeg](https://ffmpeg.org/download.html)  
 This package is needed in order to splice videos from your local machine and add different videos together
+
+
+### Confirm Installation
+
+The following commands should give you filepaths to your installed/discoverable new software
+```shell script
+which python
+which youtube-dl
+which ffmpeg
+```
 
 
 ### How to use
 
 The key to running this program in its current state is the songs.txt file. In this directory currently is a songs.txt that I have tested and confirmed to work. The format is as follows:
 
-```
+```text
 youtube link for beep
 beep start time
 beep end time
